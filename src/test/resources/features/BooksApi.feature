@@ -1,7 +1,7 @@
 Feature: Book API Operations
 
 @book @smoke @crud
-  Scenario Outline: This feature tests the CRUD operations for managing books via the Book API.
+   This feature tests the CRUD operations for managing books via the Book API.
 
   @create @positive
   Scenario: Create a new book
