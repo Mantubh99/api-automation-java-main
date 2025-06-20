@@ -77,6 +77,12 @@ Scenario Outline: Verify if name and email is being Successfully added User API
     When I send a POST request to "/users"
     Then the response status code should be 400
     
+  @update @negative
+  Scenario: Update user with invalid ID
+    Given a user payload with name "Update Fail" and email ""
+    When I send a PUT request to "/users/invalid-id" with updated name "Updated Name"
+    Then the response status code should be 404
+    
     
  Examples:
 		|         name           |       email          |
