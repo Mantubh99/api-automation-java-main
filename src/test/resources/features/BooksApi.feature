@@ -1,5 +1,6 @@
 Feature: Book API Operations
 
+Scenario Outline: Verify if title, Author, and year is being Successfully added using ADD bookAPI
 @book @smoke @crud
    This feature tests the CRUD operations for managing books via the Book API.
 
@@ -40,3 +41,10 @@ Feature: Book API Operations
     When I try to fetch a non-existent book ID
     Then the book should be deleted with status code 404
 
+
+Examples:
+		|         title           |       author         |   year   |
+		|Clean Code               | Robert C. Martin     | 2008     |
+		|The Pragmatic Programmer | Andrew Hunt          | 1999     | 
+		|Refactoring              | Martin Fowler        | 1999     |   
+		|Domain-Driven Design     | Eric Evans           | 2003     |
