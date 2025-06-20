@@ -104,4 +104,30 @@ public class BookStepDefs {
                 .when()
                 .get(ApiUtils.getBaseUrl() + "/books/9999");
 
-        testContext.getExtentTest().log(Status.INFO, "Attempted to fetch non-existent book ID 999
+        testContext.getExtentTest().log(Status.INFO, "Attempted to fetch non-existent book ID 999");
+    }
+    
+    @Given("a new book with title {string}")
+        public void a_new_book_with_details(String title) {
+            requestBook = new Book(title);
+            testContext.getExtentTest().log(Status.INFO, "Creating book: " + requestBook.toString());
+        }
+    
+    @When("I send a POST request to create the book")
+    public void i_send_post_request_to_create_book() {
+        response = given()
+                .contentType("application/json")
+                .body(requestBook)
+                .when()
+                .post(ApiUtils.getBaseUrl() + "/books");
+
+        testContext.setContext(Context.BOOK_ID, response.jsonPath().getInt("id"));
+        testContext.getExtentTest().log(Status.INFO, "Response: " + response.asString());
+    }
+    
+    @Then("the book should be not be created and response status code {int}")
+    public void book_should_be_created_with_status_code(Integer statusCode) {
+        Assert.assertEquals(response.getStatusCode(), statusCode.intValue());
+        testContext.getExtentTest().log(Status.FAIL, "Error Message");
+    }
+}

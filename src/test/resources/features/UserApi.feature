@@ -1,6 +1,7 @@
 @user @smoke @create
 Feature: User API Operations
 
+Scenario Outline: Verify if name and email is being Successfully added User API
   This feature verifies the complete CRUD operations of the User API.
 
   Background:
@@ -63,3 +64,14 @@ Feature: User API Operations
   Scenario: Delete user with invalid ID
     When I send a DELETE request to "/users/invalid-id"
     Then the response status code should be 404
+    
+    
+ Examples:
+		|         name           |       email          |
+		|Jane Doe                | jane.doe@example.com |
+		|John Doe                | john@example.com     |
+		|John Smith              | john@example.com     |  
+		|Invalid Email           | invalid-email        | 
+		|Update Fail             | fail@example.com     |
+    
+    
