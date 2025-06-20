@@ -48,6 +48,14 @@ Scenario Outline: Verify if title, Author, and year is being Successfully added 
     Then the book should be not be created and response status code 400 
     When Error message has been show up as "Author and year fields required to create book"
     Then the response should contain the message "Error Message"
+    
+  @create @negative @regression
+  Scenario: Create book without leave title and year blank 
+    Given a new book with title "" , author "Ken Arnold", and year " "
+    When I send a POST request to create te book
+    Then the book should be not be created and response status code 400 
+    When Error message has been show up as "title and year fields required for create book"
+    Then the response should contain the message "Error Message"
 
 
 Examples:
