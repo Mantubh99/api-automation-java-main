@@ -111,9 +111,16 @@ public class BookStepDefs {
         public void a_new_book_with_details(String title) {
             requestBook = new Book(title);
             testContext.getExtentTest().log(Status.INFO, "Creating book: " + requestBook.toString());
-        }
+        } 
+ 
     
-    @When("I send a POST request to create the book")
+    @Then("the book should be not be created and response status code {int}")
+    public void book_should_be_created_with_status_code(Integer statusCode) {
+        Assert.assertEquals(response.getStatusCode(), statusCode.intValue());
+        testContext.getExtentTest().log(Status.FAIL, "Error Message");
+    }
+    
+    @When("Error message has been show up as  {string} ")
     public void i_send_post_request_to_create_book() {
         response = given()
                 .contentType("application/json")
@@ -125,9 +132,10 @@ public class BookStepDefs {
         testContext.getExtentTest().log(Status.INFO, "Response: " + response.asString());
     }
     
-    @Then("the book should be not be created and response status code {int}")
-    public void book_should_be_created_with_status_code(Integer statusCode) {
-        Assert.assertEquals(response.getStatusCode(), statusCode.intValue());
-        testContext.getExtentTest().log(Status.FAIL, "Error Message");
+    @Then("the response should contain the message {string}")
+    public void response_should_contain_title(String expectedTitle) {
+        String actualTitle = response.jsonPath().getString("title");
+        Assert.assertEquals(actualTitle, expectedTitle);
+        testContext.getExtentTest().log(Status.PASS, "Book title matched: " + actualTitle);
     }
 }
