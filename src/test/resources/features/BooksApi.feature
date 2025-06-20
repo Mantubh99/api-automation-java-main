@@ -21,7 +21,7 @@ Scenario Outline: Verify if title, Author, and year is being Successfully added 
   @update @positive @regression
   Scenario: Update the book title
     Given a new book with title "<title>", author "<author>", and year "<year>"
-    When I send a POST request to create the book
+    When I send a PUT request to create the book
     Then the book should be created with status code 201
     When I update the book title to "Refactoring (2nd Edition)"
     Then the book should be updated with status code 200
@@ -63,7 +63,17 @@ Scenario Outline: Verify if title, Author, and year is being Successfully added 
     When I send a POST request to create te book
     Then the book should be not be created and response status code 400 
     When Error message has been show up as "title, author and year fields required to create book"
-    Then the response should contain the message "Error Message"  
+    Then the response should contain the message "Error Message" 
+    
+    
+  @update @negative @regression
+  Scenario: Update the book title
+    Given a new book with title "" author "<author>", and year ""
+    When I send a PUT request to update the book
+    Then the book should be not be created and response status code 400 
+    When Error message has been show up as "title, author and year fields required to create book"
+    Then the response should contain the message "Error Message" 
+   
     
   
 

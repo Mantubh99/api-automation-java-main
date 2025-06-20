@@ -138,4 +138,16 @@ public class BookStepDefs {
         Assert.assertEquals(actualTitle, expectedTitle);
         testContext.getExtentTest().log(Status.PASS, "Book title matched: " + actualTitle);
     }
+    
+    @When("I send a PUT request to update the book")
+    public void i_send_post_request_to_update_book() {
+        response = given()
+                .contentType("application/json")
+                .body(requestBook)
+                .when()
+                .put(ApiUtils.getBaseUrl() + "/users/" + id);
+
+        testContext.setContext(Context.BOOK_ID, response.jsonPath().getInt("id"));
+        testContext.getExtentTest().log(Status.INFO, "Response: " + response.asString());
+    }
 }
