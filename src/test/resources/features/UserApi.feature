@@ -65,6 +65,18 @@ Scenario Outline: Verify if name and email is being Successfully added User API
     When I send a DELETE request to "/users/invalid-id"
     Then the response status code should be 404
     
+  @create @negative
+  Scenario: Create a user with blank email
+    Given a user payload with name "Mahantesh" and email ""
+    When I send a POST request to "/users"
+    Then the response status code should be 400
+    
+  @create @negative
+  Scenario: Create a user with blank name and email
+    Given a user payload with name "" and email ""
+    When I send a POST request to "/users"
+    Then the response status code should be 400
+    
     
  Examples:
 		|         name           |       email          |

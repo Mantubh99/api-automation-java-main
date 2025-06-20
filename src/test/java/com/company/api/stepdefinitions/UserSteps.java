@@ -79,5 +79,14 @@ public class UserSteps {
         String actualEmail = response.jsonPath().getString("email");
         Assert.assertEquals(actualEmail, expectedEmail);
     }
+    
+
+    @Given("a user payload with name {string} ")
+    public void createUserPayload(String name) {
+        user = new User(name, email);
+        RestAssured.baseURI = ConfigManager.getProperty("base.url");
+    }
+    
+   
 }
 
