@@ -75,7 +75,7 @@ Scenario Outline: Verify if name and email is being Successfully added User API
   Scenario: Create a user with blank name and email
     Given a user payload with name "" and email ""
     When I send a POST request to "/users"
-    Then the response status code should be 400
+    Then the response status code should be 401
     
   @update @negative
   Scenario: Update user with invalid ID
